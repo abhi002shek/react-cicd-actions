@@ -14,7 +14,8 @@ jobs:
            uses: actions/cache@v4
            with:
              path: ~/.npm
-# ubuntu-node-231234876 (This below key will generate a unique key based on OS and package-lock.json file hash)             key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+# ubuntu-node-231234876 (This below key will generate a unique key based on OS and package-lock.json file hash)
+             key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
          - name: Install dependencies
            run: npm ci
          - name: Run tests
