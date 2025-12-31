@@ -1,0 +1,8 @@
+name: Greeting
+on: push
+jobs:
+  greeting_job:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Greeting Step
+        run: echo "Hello, welcome to the CI/CD pipeline!"
