@@ -1,7 +1,7 @@
 name: Deploy dist
 on: [push, workflow_dispatch]
 jobs:
-    greeting_job:
+    test:
         runs-on: ubuntu-latest
         steps:
          - name: Get code
@@ -10,10 +10,21 @@ jobs:
            uses: actions/setup-node@v6
            with:
              node-version: '21'
-         - name: print version
-           run: node -v
          - name: Install dependencies
            run: npm ci
          - name: Run tests
            run: npm run test
-           
+    deploy:
+        needs: test
+        runs-on: ubuntu-latest
+        steps:
+         - name: Get code
+           uses: actions/checkout@v6
+         - name: Install NodeJS
+           uses: actions/setup-node@v6
+           with:
+             node-version: '21'
+         - name: Install dependencies
+           run: npm ci
+         - name: Run tests
+           run: npm run build 
