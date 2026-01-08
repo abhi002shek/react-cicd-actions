@@ -1,3 +1,39 @@
 body{
   text-align: center;
 }
+
+.monitoring-info {
+  margin: 20px 0;
+  padding: 20px;
+  background: #f0f8ff;
+  border-radius: 10px;
+  border-left: 4px solid #007acc;
+}
+
+.like-btn {
+  background: #ff6b6b;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 25px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: all 0.3s ease;
+}
+
+.like-btn:hover {
+  background: #ff5252;
+  transform: scale(1.05);
+}
+
+.thank-you {
+  color: #28a745;
+  font-weight: bold;
+  margin-top: 10px;
+  animation: fadeIn 0.5s ease-in;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}

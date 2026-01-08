@@ -14,13 +14,13 @@ jobs:
         runs-on: ubuntu-latest
         steps:
          - name: Get code
-           uses: actions/checkout@v6
+           uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332 # v4.1.7
          - name: Install NodeJS
-           uses: actions/setup-node@v6
+           uses: actions/setup-node@1e60f620b9541d16bece96c5465dc8ee9832be0b # v4.0.3
            with:
              node-version: '20'
          - name: cache dependencies
-           uses: actions/cache@v4
+           uses: actions/cache@0c45773b623bea8c8e75f6c82b208c3cf94ea4f9 # v4.0.2
            with:
              path: ~/.npm
 # ubuntu-node-231234876 (This below key will generate a unique key based on OS and package-lock.json file hash)
@@ -34,13 +34,13 @@ jobs:
       runs-on: ubuntu-latest
       steps:
          - name: Get code
-           uses: actions/checkout@v6
+           uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332 # v4.1.7
          - name: Install NodeJS
-           uses: actions/setup-node@v6
+           uses: actions/setup-node@1e60f620b9541d16bece96c5465dc8ee9832be0b # v4.0.3
            with:
              node-version: '21'
          - name: cache dependencies
-           uses: actions/cache@v4
+           uses: actions/cache@0c45773b623bea8c8e75f6c82b208c3cf94ea4f9 # v4.0.2
            with:
              path: ~/.npm
 # ubuntu-node-231234876 (This below key will generate a unique key based on OS and package-lock.json file hash)
@@ -50,7 +50,7 @@ jobs:
          - name: Build project
            run: npm run build
          - name: Upload dist folder
-           uses: actions/upload-pages-artifact@v3
+           uses: actions/upload-pages-artifact@56afc609e74202658d3ffba0e8f6dda462b719fa # v3.0.1
            with:
                 name: github-pages
                 path: dist
@@ -69,6 +69,6 @@ jobs:
         steps:
          - name: Deploy to GitHub Pages
            id: deployment
-           uses: actions/deploy-pages@v4
+           uses: actions/deploy-pages@d6db90164ac5ed86f2b6aed7e0febac5b3c0c03e # v4.0.5
            with:
             token: ${{ secrets.GITHUB_TOKEN }}
