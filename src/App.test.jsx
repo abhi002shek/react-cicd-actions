@@ -3,20 +3,26 @@ import { render, screen } from '@testing-library/react';
 import { describe, test, expect } from 'vitest'
 import App from './App';
 
-test('renders Github Actions heading', () => {
+test('renders DevOps Monitoring Lab heading', () => {
   render(<App />);
-  const headingElement = screen.getByText(/Github Actions/i);
+  const headingElement = screen.getByText(/DevOps Monitoring Lab/i);
   expect(headingElement).toBeInTheDocument();
 });
 
-test('contains an h1 element', () => {
-  const { container } = render(<App />);
-  const h1Element = container.querySelector('h1');
-  expect(h1Element).toBeInTheDocument();
+test('renders Happy New Year text', () => {
+  render(<App />);
+  const newYearElement = screen.getByText(/Happy New Year 2026/i);
+  expect(newYearElement).toBeInTheDocument();
 });
 
-test('contains an h2 element', () => {
-  const { container } = render(<App />);
-  const h2Element = container.querySelector('h2');
-  expect(h2Element).toBeInTheDocument();
+test('renders like button', () => {
+  render(<App />);
+  const likeButton = screen.getByRole('button', { name: /like/i });
+  expect(likeButton).toBeInTheDocument();
+});
+
+test('contains monitoring dashboard text', () => {
+  render(<App />);
+  const monitoringText = screen.getByText(/Real-Time Monitoring Dashboard/i);
+  expect(monitoringText).toBeInTheDocument();
 });
