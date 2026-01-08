@@ -1,0 +1,19 @@
+name: Deploy Metrics Server to Railway
+
+on:
+  push:
+    branches: [main]
+    paths: ['metrics-server/**']
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332 # v4.1.7
+      
+      - name: Deploy to Railway
+        uses: bervProject/railway-deploy@212a1f8bd9073503dc9e79a83a9b2a44aa8c0de0 # v1.3.0
+        with:
+          railway_token: ${{ secrets.RAILWAY_TOKEN }}
+          service: 'metrics-server'
