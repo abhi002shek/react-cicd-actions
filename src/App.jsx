@@ -5,10 +5,20 @@ function App() {
   const [likes, setLikes] = useState(0)
   const [showMessage, setShowMessage] = useState(false)
 
-  const handleLike = () => {
+  const handleLike = async () => {
     setLikes(likes + 1)
     setShowMessage(true)
     setTimeout(() => setShowMessage(false), 3000)
+    
+    // Send metric to server (if available)
+    try {
+      await fetch('http://localhost:3001/api/like', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' }
+      })
+    } catch (error) {
+      console.log('Metrics server not available:', error.message)
+    }
   }
 
   return (
