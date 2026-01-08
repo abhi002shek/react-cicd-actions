@@ -7,10 +7,26 @@ function App() {
 
   // Track page view on load
   useEffect(() => {
-    fetch('https://react-metrics-production.up.railway.app/api/pageview', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' }
-    }).catch(() => console.log('Metrics server unavailable'))
+    // Try Railway first, fallback to local
+    const tryMetricsEndpoint = async (url) => {
+      try {
+        await fetch(`${url}/api/pageview`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' }
+        })
+        return true
+      } catch {
+        return false
+      }
+    }
+
+    // Try Railway, then local
+    tryMetricsEndpoint('https://react-metrics-production.up.railway.app')
+      .then(success => {
+        if (!success) {
+          tryMetricsEndpoint('http://localhost:3001')
+        }
+      })
   }, [])
 
   const handleLike = async () => {
@@ -18,14 +34,22 @@ function App() {
     setShowMessage(true)
     setTimeout(() => setShowMessage(false), 3000)
     
-    // Send metric to server
-    try {
-      await fetch('https://react-metrics-production.up.railway.app/api/like', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' }
-      })
-    } catch (error) {
-      console.log('Metrics server unavailable:', error.message)
+    // Send metric to server (try Railway first, then local)
+    const tryMetricsEndpoint = async (url) => {
+      try {
+        await fetch(`${url}/api/like`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' }
+        })
+        return true
+      } catch {
+        return false
+      }
+    }
+
+    const success = await tryMetricsEndpoint('https://react-metrics-production.up.railway.app')
+    if (!success) {
+      await tryMetricsEndpoint('http://localhost:3001')
     }
   }
 
@@ -41,6 +65,12 @@ function App() {
           ❤️ Like ({likes})
         </button>
         {showMessage && <p className="thank-you">Thank you! Metric recorded! 🎉</p>}
+      </div>
+      <div className="monitoring-links">
+        <p>📊 <strong>Live Monitoring:</strong></p>
+        <p>• <a href="https://react-metrics-production.up.railway.app/metrics" target="_blank" rel="noopener noreferrer">Live Metrics</a></p>
+        <p>• <a href="https://react-metrics-production.up.railway.app/health" target="_blank" rel="noopener noreferrer">Health Check</a></p>
+        <p>• Local Grafana: <code>http://localhost:3000</code></p>
       </div>
       <h5>Keep smiling</h5>
     </>
