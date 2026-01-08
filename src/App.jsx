@@ -7,7 +7,6 @@ function App() {
 
   // Track page view on load
   useEffect(() => {
-    // Try Railway first, fallback to local
     const tryMetricsEndpoint = async (url) => {
       try {
         await fetch(`${url}/api/pageview`, {
@@ -20,7 +19,6 @@ function App() {
       }
     }
 
-    // Try Railway, then local
     tryMetricsEndpoint('https://react-metrics-production.up.railway.app')
       .then(success => {
         if (!success) {
@@ -34,7 +32,6 @@ function App() {
     setShowMessage(true)
     setTimeout(() => setShowMessage(false), 3000)
     
-    // Send metric to server (try Railway first, then local)
     const tryMetricsEndpoint = async (url) => {
       try {
         await fetch(`${url}/api/like`, {
@@ -54,26 +51,43 @@ function App() {
   }
 
   return (
-    <>
-      <h1>Github Actions and Sonarcloud</h1>
-      <h2>Happy New year 2026, You have a great journey ahead!</h2>
-      <div className="monitoring-info">
-        <p>🔍 This app is used for monitoring and DevOps learning!</p>
-        <p>Every click sends real metrics to Prometheus 📊</p>
-        <p>If you want to wish me back, show some love:</p>
-        <button onClick={handleLike} className="like-btn">
-          ❤️ Like ({likes})
-        </button>
-        {showMessage && <p className="thank-you">Thank you! Metric recorded! 🎉</p>}
+    <div className="app-container">
+      <div className="hero-section">
+        <h1 className="main-title">🚀 DevOps Monitoring Lab</h1>
+        <h2 className="subtitle">Happy New Year 2026! 🎉</h2>
+        <p className="tagline">You have a great journey ahead!</p>
       </div>
-      <div className="monitoring-links">
-        <p>📊 <strong>Live Monitoring:</strong></p>
-        <p>• <a href="https://react-metrics-production.up.railway.app/metrics" target="_blank" rel="noopener noreferrer">Live Metrics</a></p>
-        <p>• <a href="https://react-metrics-production.up.railway.app/health" target="_blank" rel="noopener noreferrer">Health Check</a></p>
-        <p>• Local Grafana: <code>http://localhost:3000</code></p>
+
+      <div className="monitoring-card">
+        <div className="card-header">
+          <span className="icon">📊</span>
+          <h3>Real-Time Monitoring Dashboard</h3>
+        </div>
+        <div className="card-content">
+          <p>This app demonstrates production-grade monitoring with <strong>Prometheus</strong> & <strong>Grafana</strong></p>
+          <p>Every interaction sends real metrics to our monitoring stack!</p>
+          
+          <div className="interaction-section">
+            <p className="cta-text">Show some love and generate metrics:</p>
+            <button onClick={handleLike} className="like-button">
+              <span className="heart">❤️</span>
+              <span className="text">Like</span>
+              <span className="counter">({likes})</span>
+            </button>
+            {showMessage && (
+              <div className="success-message">
+                <span className="checkmark">✅</span>
+                Metric recorded! Check Grafana dashboard!
+              </div>
+            )}
+          </div>
+        </div>
       </div>
-      <h5>Keep smiling</h5>
-    </>
+
+      <div className="footer">
+        <p>Keep smiling & keep monitoring! 😊</p>
+      </div>
+    </div>
   )
 }
 
