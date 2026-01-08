@@ -1,8 +1,8 @@
 {
   "dashboard": {
     "id": null,
-    "title": "React App Monitoring - Beginner Dashboard",
-    "tags": ["react", "monitoring", "beginner"],
+    "title": "React App Monitoring",
+    "tags": ["react", "monitoring"],
     "timezone": "browser",
     "panels": [
       {
@@ -18,12 +18,8 @@
         "fieldConfig": {
           "defaults": {
             "color": {
-              "mode": "palette-classic"
+              "mode": "thresholds"
             },
-            "custom": {
-              "displayMode": "basic"
-            },
-            "unit": "short",
             "thresholds": {
               "steps": [
                 {"color": "green", "value": null},
@@ -33,11 +29,11 @@
             }
           }
         },
-        "gridPos": {"h": 8, "w": 8, "x": 0, "y": 0}
+        "gridPos": {"h": 8, "w": 12, "x": 0, "y": 0}
       },
       {
         "id": 2,
-        "title": "👀 Total Page Views",
+        "title": "👀 Page Views",
         "type": "stat",
         "targets": [
           {
@@ -48,22 +44,25 @@
         "fieldConfig": {
           "defaults": {
             "color": {
-              "mode": "palette-classic"
+              "mode": "thresholds"
             },
-            "unit": "short"
+            "thresholds": {
+              "steps": [
+                {"color": "blue", "value": null}
+              ]
+            }
           }
         },
-        "gridPos": {"h": 8, "w": 8, "x": 8, "y": 0}
+        "gridPos": {"h": 8, "w": 12, "x": 12, "y": 0}
       },
       {
         "id": 3,
-        "title": "📈 Likes Activity (Last Hour)",
+        "title": "📈 Likes Over Time",
         "type": "timeseries",
         "targets": [
           {
             "expr": "app_likes_total",
-            "refId": "A",
-            "legendFormat": "Total Likes"
+            "refId": "A"
           }
         ],
         "fieldConfig": {
@@ -79,35 +78,7 @@
             }
           }
         },
-        "gridPos": {"h": 8, "w": 16, "x": 0, "y": 8}
-      },
-      {
-        "id": 4,
-        "title": "🚀 Likes Per Minute",
-        "type": "stat",
-        "targets": [
-          {
-            "expr": "rate(app_likes_total[5m]) * 60",
-            "refId": "A"
-          }
-        ],
-        "fieldConfig": {
-          "defaults": {
-            "color": {
-              "mode": "thresholds"
-            },
-            "unit": "short",
-            "decimals": 1,
-            "thresholds": {
-              "steps": [
-                {"color": "blue", "value": null},
-                {"color": "green", "value": 1},
-                {"color": "yellow", "value": 5}
-              ]
-            }
-          }
-        },
-        "gridPos": {"h": 8, "w": 8, "x": 16, "y": 0}
+        "gridPos": {"h": 8, "w": 24, "x": 0, "y": 8}
       }
     ],
     "time": {
