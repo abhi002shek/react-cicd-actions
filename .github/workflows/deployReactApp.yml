@@ -1,5 +1,4 @@
 name: Deploy react to github pages
-#on: [push, workflow_dispatch]
 on:
   push:
     branches:
@@ -16,14 +15,13 @@ jobs:
          - name: Get code
            uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332 # v4.1.7
          - name: Install NodeJS
-           uses: actions/setup-node@1e60f620b9541d16bece96c5465dc8ee9832be0b # v4.0.3
+           uses: actions/setup-node@39370e3970a6d050c480ffad4ff0ed4d3fdee5af # v4.1.0
            with:
              node-version: '20'
          - name: cache dependencies
-           uses: actions/cache@0c45773b623bea8c8e75f6c82b208c3cf94ea4f9 # v4.0.2
+           uses: actions/cache@6849a6489940f00c2f30c0fb92c6274307ccb58a # v4.1.2
            with:
              path: ~/.npm
-# ubuntu-node-231234876 (This below key will generate a unique key based on OS and package-lock.json file hash)
              key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
          - name: Install dependencies
            run: npm ci
@@ -36,14 +34,13 @@ jobs:
          - name: Get code
            uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332 # v4.1.7
          - name: Install NodeJS
-           uses: actions/setup-node@1e60f620b9541d16bece96c5465dc8ee9832be0b # v4.0.3
+           uses: actions/setup-node@39370e3970a6d050c480ffad4ff0ed4d3fdee5af # v4.1.0
            with:
-             node-version: '21'
+             node-version: '20'
          - name: cache dependencies
-           uses: actions/cache@0c45773b623bea8c8e75f6c82b208c3cf94ea4f9 # v4.0.2
+           uses: actions/cache@6849a6489940f00c2f30c0fb92c6274307ccb58a # v4.1.2
            with:
              path: ~/.npm
-# ubuntu-node-231234876 (This below key will generate a unique key based on OS and package-lock.json file hash)
              key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
          - name: Install dependencies
            run: npm ci
@@ -57,12 +54,9 @@ jobs:
     deploy:
         needs: build
         runs-on: ubuntu-latest
-        # Grant GITHUB_TOKEN the permissions required to make a Pages deployment
         permissions:
-         pages: write      # to deploy to Pages
-         id-token: write   # to verify the deployment originates from an appropriate source
-
-        # Deploy to the github-pages environment
+         pages: write
+         id-token: write
         environment:
          name: github-pages
          url: ${{ steps.deployment.outputs.page_url }}
